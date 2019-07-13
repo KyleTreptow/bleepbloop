@@ -2,6 +2,31 @@
 // Main
 /////////////////////////////////
 
+// Config
+$bfs: 18px
+$lhr: 1.6
+$blh: round($bfs * $lhr)
+
+// Fonts
+=font-body()
+  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
+=font-title()
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
+
+// media breakpoints (min)
+$media-min-xs: "screen and (min-width: 576px)"
+$media-min-sm: "screen and (min-width: 768px)"
+$media-min-md: "screen and (min-width: 992px)"
+$media-min-lg: "screen and (min-width: 1200px)"
+$media-min-xl: "screen and (min-width: 1400px)"
+
+// media breakpoints (max)
+$media-max-xs: "screen and (max-width: 575px)"
+$media-max-sm: "screen and (max-width: 767px)"
+$media-max-md: "screen and (max-width: 991px)"
+$media-max-lg: "screen and (max-width: 1199px)"
+$media-max-xl: "screen and (max-width: 1399px)"
+
 // Utilities
 @import './utilities/_animations.sass'
 @import './utilities/_functions.sass'
@@ -11,7 +36,6 @@
 // Components
 @import './components/_button.sass'
 @import './components/_container.sass'
-@import './components/_links.sass'
+@import './components/_list.sass'
 @import './components/_nuxt-logo.sass'
-@import './components/_subtitle.sass'
 @import './components/_title.sass'

@@ -3,9 +3,21 @@
 /////////////////////////////////
 
 .title
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif
-  display: block
+  $clr-main: #35495e
+  $clr-alt: #526488
   font-weight: 300
-  font-size: 100px
-  color: #35495e
-  letter-spacing: 1px
+  display: block
+  &--main
+    +font-title()
+    font-weight: 300
+    font-size: ($bfs*5)
+    color: $clr-main
+    letter-spacing: 1px
+    line-height: ($blh*4)
+    margin-bottom: ($blh/2)
+  &--sub
+    font-size: ($bfs*2)
+    line-height: ($blh*2)
+    color: $clr-alt
+    word-spacing: 5px
+    margin-bottom: ($blh)
