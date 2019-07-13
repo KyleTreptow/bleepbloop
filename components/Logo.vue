@@ -1,5 +1,4 @@
 <template>
-  <h1>KYLE</h1>
   <div class="nuxt-logo">
     <div class="nuxt-logo__triangle nuxt-logo__triangle--two" />
     <div class="nuxt-logo__triangle nuxt-logo__triangle--one" />
