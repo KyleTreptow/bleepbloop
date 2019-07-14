@@ -1,13 +1,15 @@
 <template>
   <div class="container">
     <div>
+
       <logo />
+
       <h1 class="title title--main">
         bleepbloop
       </h1>
-      <h2 class="title title--sub">
-        JS Synth Project
-      </h2>
+
+      <piano />
+
       <!-- Button Row -->
       <ul class="list list--inline">
         <li class="list__item">
@@ -45,16 +47,15 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 
-export default {
-  components: {
-    Logo
-  },
-  methods: {
-    testAlert: function(msg){
-      alert(msg);
+  import Logo from '~/components/Logo.vue'
+  import Piano from '~/components/Piano.vue'
+
+  export default {
+    components: {
+      Logo,
+      Piano
     }
   }
-}
+
 </script>
