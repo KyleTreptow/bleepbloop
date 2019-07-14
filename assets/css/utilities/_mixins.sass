@@ -2,6 +2,25 @@
 // Mixins
 /////////////////////////////////
 
+// Media Query
+=mquery($type: false, $bp: false, $bp2: false)
+  @if ($type == 'min')
+    @media screen and (min-width: $bp)
+      @content
+  @else if ($type == 'max')
+    @media screen and (max-width: ($bp - 1))
+      @content
+  @else if ($type == 'range')
+    @media screen and (min-width: $bp) and (max-width: ($bp2 - 1))
+      @content
+  @else
+    @content
+
+// Font
+=font($family, $weight: inherit)
+  font-family: #{$family}
+  font-weight: $weight
+
 // Gradient
 =gradient-bg-vert($clr-a, $clr-b)
   background: $clr-a

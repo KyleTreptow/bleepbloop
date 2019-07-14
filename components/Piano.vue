@@ -6,8 +6,8 @@
         class="piano__octave-item"
       >
         <button
-        :class="octaveClass(n)"
-        @click="changeOctive(n)"
+          :class="octaveClass(n)"
+          @click="changeOctive(n)"
         >
           {{ n }}
         </button>
@@ -19,7 +19,9 @@
         :class="keyClass(key.color)"
         @click="playTone(key.note + octave)"
       >
-        <span class="piano__label">{{ key.note + octave}}</span>
+        <span class="piano__label">
+          {{ key.note + octave}}
+        </span>
       </button>
     </div>
   </div>
