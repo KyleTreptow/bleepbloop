@@ -11,15 +11,17 @@
   &__octave-item
     display: inline-block
   &__octave-btn
-    +transition-2(color, background-color)
+    +transition-3(color, background-color, border-color)
     -webkit-appearance: none
     font-size: $bfs
     background: #fff
     color: #35495e
     padding: ($blh/4) ($blh/2)
+    border: solid 1px #ccc
     &--active
-      background: #35495e
+      background-color: #35495e
       color: #fff
+      border-color: #35495e
     .piano__octave-item:first-child &
       border-top-left-radius: 4px
       border-bottom-left-radius: 4px
