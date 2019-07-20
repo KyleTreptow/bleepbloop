@@ -8,15 +8,17 @@
   font-weight: 300
   display: block
   &--main
-    +font($font-title, 300)
     font-size: ($bfs*5)
     color: $clr-main
     letter-spacing: 1px
     line-height: ($blh*4)
     margin-bottom: ($blh/2)
-  &--sub
-    font-size: ($bfs*2)
+  &__sub
+    +font($ff-main, 400)
+    display: block
+    font-size: ($bfs * 1.25)
     line-height: ($blh*2)
+    text-transform: uppercase
     color: $clr-alt
-    word-spacing: 5px
+    letter-spacing: 5px
     margin-bottom: ($blh)

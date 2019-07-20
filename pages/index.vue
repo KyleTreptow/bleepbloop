@@ -5,7 +5,10 @@
       <logo />
 
       <h1 class="title title--main">
-        bleepbloop
+        BleepBloop
+        <small class="title__sub">
+          Browser-Based Synthesizer
+        </small>
       </h1>
 
       <piano />

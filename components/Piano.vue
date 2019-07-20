@@ -60,6 +60,9 @@
     mounted: function() {
 
     },
+    computed: {
+
+    },
     methods: {
       octaveClass: function(n){
         return (this.octave == n) ? 'piano__octave-btn piano__octave-btn--active' : 'piano__octave-btn';
