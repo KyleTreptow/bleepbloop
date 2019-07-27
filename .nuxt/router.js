@@ -2,7 +2,12 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
+<<<<<<< HEAD
 const _f36ab222 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
+=======
+const _2814e631 = () => interopDefault(import('../pages/buttons.vue' /* webpackChunkName: "pages/buttons" */))
+const _54148502 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+>>>>>>> kyle
 
 Vue.use(Router)
 
@@ -79,6 +84,10 @@ export function createRouter() {
     scrollBehavior,
 
     routes: [{
+      path: "/buttons",
+      component: _2814e631,
+      name: "buttons"
+    }, {
       path: "/",
       component: _f36ab222,
       name: "index"

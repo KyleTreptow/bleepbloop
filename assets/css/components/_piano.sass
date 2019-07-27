@@ -1,0 +1,50 @@
+/////////////////////////////////
+// Piano
+/////////////////////////////////
+
+.piano
+  &__octave-list
+    padding: 0
+    display: block
+    margin-bottom: $blh/2
+    font-size: 0
+  &__octave-item
+    display: inline-block
+  &__octave-btn
+    +transition-3(color, background-color, border-color)
+    -webkit-appearance: none
+    font-size: $bfs
+    background: #fff
+    color: #35495e
+    padding: ($blh/4) ($blh/2)
+    border: solid 1px #ccc
+    &--active
+      background-color: #35495e
+      color: #fff
+      border-color: #35495e
+    .piano__octave-item:first-child &
+      border-top-left-radius: 4px
+      border-bottom-left-radius: 4px
+    .piano__octave-item:last-child &
+      border-top-right-radius: 4px
+      border-bottom-right-radius: 4px
+    &:hover,
+    &:focus,
+    &:active
+      outline: 0
+      cursor: pointer
+  &__roll
+    margin-bottom: $blh
+    font-size: 0
+  &__key
+    -webkit-appearance: none
+    font-size: $bfs
+    display: inline-block
+    width: $blh*2
+    vertical-align: top
+    border: solid 1px #ddd
+    padding: $blh ($blh/4)
+    &--black
+      background: #eee
+  &__label
+    color: #999

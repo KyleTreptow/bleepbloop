@@ -1,41 +1,64 @@
 <template>
   <div class="container">
     <div>
+
       <logo />
-      <h1 class="title">
-        bleepbloop
+
+      <h1 class="title title--main">
+        BleepBloop
+        <small class="title__sub">
+          Browser-Based Synthesizer
+        </small>
       </h1>
 
-      <h2 class="subtitle">
-        Code Synth Project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
+      <piano />
+
+      <!-- Button Row -->
+      <ul class="list list--inline">
+        <li class="list__item">
+          <a
+            class="button button--main-o"
+            href="https://nuxtjs.org/"
+            target="_blank"
+          >
+            Docs
+          </a>
+        </li>
+        <li class="list__item">
+          <a
+            class="button button--alt-o"
+            href="https://github.com/nuxt/nuxt.js"
+            target="_blank"
+          >
+            GitHub
+          </a>
+        </li>
+        <li class="list__item">
+          <a
+            class="button button--hlt-o"
+            href="/buttons/"
+            target="_blank"
+          >
+            Buttons
+          </a>
+        </li>
+      </ul>
+
 
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
 
-export default {
-  components: {
-    Logo
+  import Logo from '~/components/Logo.vue'
+  import Piano from '~/components/Piano.vue'
+
+  export default {
+    components: {
+      Logo,
+      Piano
+    }
   }
-}
+
 </script>
