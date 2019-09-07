@@ -29,6 +29,8 @@
 
 <script>
 
+  var log = console.log;
+
   import Tone from 'tone';
 
   export default {
@@ -39,7 +41,7 @@
           { note: 'C', color: 'white' },
           { note: 'Db', color: 'black' },
           { note: 'D', color: 'white' },
-          { note: 'Eb',color: 'black' },
+          { note: 'Eb', color: 'black' },
           { note: 'E', color: 'white' },
           { note: 'F', color: 'white' },
           { note: 'Gb', color: 'black' },

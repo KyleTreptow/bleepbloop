@@ -11,6 +11,19 @@
         </small>
       </h1>
 
+
+
+      <section class="####">
+        <aside class="####">
+
+        </aside>
+        <main class="####">
+
+        </main>
+      </section>
+
+
+
       <piano />
 
       <!-- Button Row -->
