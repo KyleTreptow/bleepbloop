@@ -54,7 +54,26 @@
       }
     },
     beforeMount: function(){
-      this.synth = new Tone.Synth().toMaster();
+      this.synth = new Tone.PolySynth(4, Tone.MonoSynth, {
+            "oscillator" : {
+                "type" : "square8"
+            },
+            "envelope" : {
+                "attack" : 0.05,
+                "decay" : 0.3,
+                "sustain" : 0.4,
+                "release" : 0.8,
+            },
+            "filterEnvelope" : {
+                "attack" : 0.001,
+                "decay" : 0.7,
+                "sustain" : 0.1,
+                "release" : 1.8,
+                "baseFrequency" : 300,
+                "octaves" : 4
+            }
+        }).toMaster();
+
       // Keyboards
       var that= this;
       document.addEventListener("keydown", function(event) {
