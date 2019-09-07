@@ -56,7 +56,21 @@
       }
     },
     beforeMount: function(){
-      this.synth = new Tone.Synth().toMaster();
+      this.synth = new Tone.Synth({
+        oscillator: {
+          type: "sawtooth",
+          harmonicity: 0.5,
+          modulationType: "sine"
+        },
+        envelope: {
+          attackCurve: "exponential",
+          attack: 0.05,
+          decay: 0.8,
+          sustain: 0.5,
+          release: 2,
+        },
+        portamento: 0.2
+      }).toMaster();
       // this.noise = new Tone.Noise("brown").toMaster().start(0).stop(3);
     },
     mounted: function() {
