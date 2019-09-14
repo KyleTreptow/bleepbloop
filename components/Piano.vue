@@ -53,7 +53,7 @@
         noise: {}
       }
     },
-    beforeMount: function(){
+    created: function(){
       this.synth = new Tone.PolySynth(4, Tone.MonoSynth, {
             "oscillator" : {
                 "type" : "square8"
