@@ -5,7 +5,7 @@
       <logo />
 
       <h1 class="title title--main">
-        BleepBloop
+        BleepBloop!!!!!!!!!!!
         <small class="title__sub">
           Browser-Based Synthesizer
         </small>
