@@ -3,7 +3,26 @@
 /////////////////////////////////
 
 .app
-  // border: solid 4px red
+  word-spacing: 0
   min-height: 100vh
-  +mquery('min', $md)
-    border-color: blue
+  &__header,
+  &__footer
+    background: #eee
+    padding: $blh/2 $blh
+  &__body
+    min-height: 90vh
+    font-size: 0
+  &__aside,
+  &__main
+    font-size: $bfs
+    display: inline-block
+    vertical-align: top
+    padding: 0
+    border: solid 1px #ddd
+    width: 50%
+    min-height: 90vh
+  &__aside
+    padding: $blh
+    width: 30%
+  &__main
+    width: 70%
