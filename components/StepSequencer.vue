@@ -1,14 +1,17 @@
 <template>
-  <div class="step-sequencer">
-    <bar v-for="i in 16"/>
+  <div class="seq">
+    <div v-for="k in 12" class="seq__keyrow">
+      <span v-for="i in 8" class="seq__bar">
+        Bar
+      </span>
+    </div>
   </div>
 </template>
 
 <script>
-  import Bar from '~/components/Bar.vue'
   export default {
-    components: {
-      Bar
+    data: function(){
+      return {}
     }
   }
 </script>
