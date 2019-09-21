@@ -15,7 +15,6 @@
       return {
         octave: '4',
         keys: [
-<<<<<<< HEAD
           { note: 'C', color: 'white', code: 65, active: false },
           { note: 'Db', color: 'black', code: 87, active: false },
           { note: 'D', color: 'white', code: 83, active: false },
@@ -28,26 +27,11 @@
           { note: 'A', color: 'white', code: 72, active: false },
           { note: 'Bb', color: 'black', code: 85, active: false },
           { note: 'B', color: 'white', code: 74, active: false }
-=======
-          { note: 'C', color: 'white' },
-          { note: 'Db', color: 'black' },
-          { note: 'D', color: 'white' },
-          { note: 'Eb', color: 'black' },
-          { note: 'E', color: 'white' },
-          { note: 'F', color: 'white' },
-          { note: 'Gb', color: 'black' },
-          { note: 'G', color: 'white' },
-          { note: 'Ab', color: 'black' },
-          { note: 'A', color: 'white' },
-          { note: 'Bb', color: 'black' },
-          { note: 'B', color: 'white' }
->>>>>>> origin/step-sequencer
         ],
         synth: {},
         noise: {}
       }
     },
-<<<<<<< HEAD
     created: function(){
       this.synth = new Tone.PolySynth(4, Tone.MonoSynth, {
             "oscillator" : {
@@ -68,26 +52,6 @@
                 "octaves" : 4
             }
         }).toMaster();
-=======
-    beforeMount: function(){
-
-      this.synth = new Tone.Synth({
-        oscillator: {
-          type: "sawtooth",
-          harmonicity: 0.5,
-          modulationType: "sine"
-        },
-        envelope: {
-          attackCurve: "exponential",
-          attack: 0.05,
-          decay: 0.8,
-          sustain: 0.5,
-          release: 2,
-        },
-        portamento: 0.2
-      }).toMaster();
-      // this.noise = new Tone.Noise("brown").toMaster().start(0).stop(3);
->>>>>>> origin/step-sequencer
     },
     mounted: function() {
       var that = this;

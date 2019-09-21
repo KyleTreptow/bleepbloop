@@ -1,10 +1,4 @@
 <template>
-<<<<<<< HEAD
-  <div class="container">
-    <div>
-      <logo />
-      <piano />
-=======
   <div class="app">
       <header class="app__header">
         App Header
@@ -20,7 +14,6 @@
       <footer class="app__footer">
         Footer Here
       </footer>
->>>>>>> origin/step-sequencer
     </div>
   </div>
 </template>
