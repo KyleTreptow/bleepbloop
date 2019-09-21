@@ -56,6 +56,7 @@
       }
     },
     beforeMount: function(){
+
       this.synth = new Tone.Synth({
         oscillator: {
           type: "sawtooth",
