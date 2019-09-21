@@ -1,29 +1,6 @@
 <template>
   <div class="piano">
-    <ul class="piano__octave-list">
-      <li
-        v-for="n in 6"
-        class="piano__octave-item"
-      >
-        <button
-          :class="octaveClass(n)"
-          @click="changeOctive(n)"
-        >
-          {{ n }}
-        </button>
-      </li>
-    </ul>
-    <div class="piano__roll">
-      <button
-        v-for="key in keys"
-        :class="keyClass(key)"
-        @click="playTone(key.note + octave)"
-      >
-        <span class="piano__label">
-          {{ key.note + octave}}
-        </span>
-      </button>
-    </div>
+
   </div>
 </template>
 
@@ -73,52 +50,28 @@
                 "octaves" : 4
             }
         }).toMaster();
-
-      // Keyboards
-      var that= this;
-      document.addEventListener("keydown", function(event) {
-        that.keys.forEach((key, index) => {
-          if (key.code == event.which){
-            that.keys[index].active = true;
-            that.playTone(key.note + that.octave)
-          }
-        });
-      })
-      document.addEventListener("keyup", function(event) {
-        that.keys.forEach((key, index) => {
-          if (key.code == event.which){
-            that.keys[index].active = false;
-          }
-        });
-      })
     },
     mounted: function() {
-
+      var that = this;
+      Tone.Transport.scheduleRepeat(function(time){
+	       that.synth.triggerAttackRelease('C4', '8n');
+      }, "2n");
+      Tone.Transport.start()
     },
     computed: {
 
     },
     methods: {
-      octaveClass: function(n){
-        return (this.octave == n) ? 'piano__octave-btn piano__octave-btn--active' : 'piano__octave-btn';
-      },
-      keyClass: function(key){
-        if (!key.active){
-          return (key.color == 'black') ? 'piano__key piano__key--black' : 'piano__key';
-        } else {
-          return 'piano__key piano__key--blue'
+        changeOctive: function(o){
+          this.octave = o;
+        },
+        playTone: function(note){
+          this.synth.triggerAttackRelease(note, '8n');
+        },
+        playNoise: function(){
+          // this.noise.volume.setValueAtTime(-20, 0)
         }
-      },
-      changeOctive: function(o){
-        this.octave = o;
-      },
-      playTone: function(note){
-        this.synth.triggerAttackRelease(note, '8n');
-      },
-      playNoise: function(){
-        // this.noise.volume.setValueAtTime(-20, 0)
       }
-    }
   }
 
 </script>

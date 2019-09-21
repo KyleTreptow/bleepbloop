@@ -2,6 +2,7 @@
   <div class="container">
     <div>
       <logo />
+      <piano />
     </div>
   </div>
 </template>
