@@ -6,21 +6,30 @@
   v-on:mouseover="hover"
   v-bind:class="{ active: active, highlight: this.step === this.row }"
   >
-    {{ this.row }}
+  {{ row }}  {{ notes[col-1]["note"] }}
   </span>
 </template>
 
 <script>
 export default {
-  props: ['row', 'step'],
+  props: ['col', 'row', 'step', 'synth'],
   data: function() {
     return {
       octave: '4',
       active: false,
-      row: this.row,
-      step: this.step,
       notes: [
-        {id: "", }
+        { note: 'C', color: 'white' },
+        { note: 'Db', color: 'black' },
+        { note: 'D', color: 'white' },
+        { note: 'Eb', color: 'black' },
+        { note: 'E', color: 'white' },
+        { note: 'F', color: 'white' },
+        { note: 'Gb', color: 'black' },
+        { note: 'G', color: 'white' },
+        { note: 'Ab', color: 'black' },
+        { note: 'A', color: 'white' },
+        { note: 'Bb', color: 'black' },
+        { note: 'B', color: 'white' }
       ]
     }
   },
@@ -36,6 +45,16 @@ export default {
     hover: function(){
       if (window.mickey) {
         this.active = window.active
+      }
+    },
+    playNote: function(){
+      this.synth.triggerAttackRelease(this.notes[this.col-1]["note"]+this.octave, '16n');
+    }
+  },
+  watch: {
+    step: function(newStep) { // watch it
+      if (newStep === this.row && this.active){
+        this.playNote()
       }
     }
   }
