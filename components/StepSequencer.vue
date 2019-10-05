@@ -26,11 +26,16 @@
     },
     data: function(){
       return {
-        step: 0
+        step: 0,
+        playing: false
       }
     },
     created: function(){
-      this.synth = new Tone.PolySynth(4, Tone.MonoSynth, {
+      var that = this
+      Tone.Transport.scheduleRepeat(function(){
+         that.iteratePlay()
+      }, "16n");
+      this.synth = new Tone.PolySynth(12, Tone.MonoSynth, {
             "oscillator" : {
                 "type" : "square8"
             },
@@ -52,7 +57,14 @@
     },
     methods: {
       play: function(){
-        this.iteratePlay()
+        if (!this.playing){
+          Tone.Transport.start()
+          this.playing = true
+        }
+        else {
+          Tone.Transport.stop()
+          this.playing = false
+        }
       },
       iteratePlay: function(){
         if (this.step < 8){ this.step = this.step + 1 }
