@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import Meta from 'vue-meta'
-import ClientOnly from 'vue-client-only'
-import NoSsr from 'vue-no-ssr'
 import { createRouter } from './router.js'
+import NoSsr from './components/no-ssr.js'
 import NuxtChild from './components/nuxt-child.js'
 import NuxtError from './components/nuxt-error.vue'
 import Nuxt from './components/nuxt.js'
@@ -11,19 +10,8 @@ import { setContext, getLocation, getRouteData, normalizeError } from './utils'
 
 /* Plugins */
 
-// Component: <ClientOnly>
-Vue.component(ClientOnly.name, ClientOnly)
-// TODO: Remove in Nuxt 3: <NoSsr>
-Vue.component(NoSsr.name, {
-  ...NoSsr,
-  render(h, ctx) {
-    if (process.client && !NoSsr._warned) {
-      NoSsr._warned = true
-      console.warn(`<no-ssr> has been deprecated and will be removed in Nuxt 3, please use <client-only> instead`)
-    }
-    return NoSsr.render(h, ctx)
-  }
-})
+// Component: <NoSsr>
+Vue.component(NoSsr.name, NoSsr)
 
 // Component: <NuxtChild>
 Vue.component(NuxtChild.name, NuxtChild)
