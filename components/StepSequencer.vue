@@ -5,9 +5,9 @@
       <div v-for="k in 12" class="seq__keyrow">
         <node
           v-for="i in 16"
-          :data-key="k+'-'+i+'-'+renderIndex"
+          :data-key="k+'-'+i+'-'+ri"
           :data-step="step"
-          :key="k+'-'+i+'-'+renderIndex"
+          :key="k+'-'+i+'-'+ri"
           :col="k"
           :row="i"
           :step="step"
@@ -38,7 +38,7 @@
       return {
         step: 0,
         playing: false,
-        renderIndex: 0
+        ri: 0 // render index
       }
     },
     created: function(){
@@ -77,7 +77,7 @@
         }
       },
       clear: function(){
-        this.renderIndex++
+        this.ri++
       },
       reset: function(){
         Tone.Transport.stop()
