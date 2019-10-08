@@ -18,6 +18,9 @@
     <button @click="play()">
       Play
     </button>
+    <button @click="clear()">
+      Clear
+    </button>
     <button @click="reset()">
       Reset
     </button>
@@ -73,11 +76,14 @@
           this.playing = false
         }
       },
+      clear: function(){
+        this.renderIndex++
+      },
       reset: function(){
         Tone.Transport.stop()
         this.playing = false
         this.step = 0
-        this.renderIndex++
+        this.clear()
       },
       iteratePlay: function(){
         if (this.step < 16){ this.step = this.step + 1 }
