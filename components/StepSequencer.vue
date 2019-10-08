@@ -3,7 +3,7 @@
     <div class="seq">
       <div v-for="k in 12" class="seq__keyrow">
         <node
-          v-for="i in 8"
+          v-for="i in 16"
           :data-key="k+'-'+i+'-'+renderIndex"
           :data-step="step"
           :key="k+'-'+i+'-'+renderIndex"
@@ -44,7 +44,7 @@
       }, "16n");
       this.synth = new Tone.PolySynth(6, Tone.MonoSynth, {
             "oscillator" : {
-                "type" : "sine2"
+                "type" : "square4"
             },
             "envelope" : {
                 "attack" : 0.5,
@@ -79,7 +79,7 @@
         this.renderIndex++
       },
       iteratePlay: function(){
-        if (this.step < 8){ this.step = this.step + 1 }
+        if (this.step < 16){ this.step = this.step + 1 }
         else { this.step = 1 }
         // console.log(this.step)
       }
