@@ -4,15 +4,20 @@
       <div v-for="k in 12" class="seq__keyrow">
         <node
           v-for="i in 8"
-          v-bind:col="k"
-          v-bind:row="i"
-          v-bind:step="step"
-          v-bind:synth="synth"
+          :data-key="k+'-'+i+'-'+renderIndex"
+          :key="k+'-'+i+'-'+renderIndex"
+          :col="k"
+          :row="i"
+          :step="step"
+          :synth="synth"
         />
       </div>
     </div>
-    <button class="play" @click="play">
+    <button @click="play()">
       Play
+    </button>
+    <button @click="reset()">
+      Reset
     </button>
   </div>
 </template>
@@ -27,7 +32,8 @@
     data: function(){
       return {
         step: 0,
-        playing: false
+        playing: false,
+        renderIndex: 0
       }
     },
     created: function(){
@@ -37,10 +43,10 @@
       }, "16n");
       this.synth = new Tone.PolySynth(12, Tone.MonoSynth, {
             "oscillator" : {
-                "type" : "square8"
+                "type" : "sine"
             },
             "envelope" : {
-                "attack" : 0.05,
+                "attack" : 0.1,
                 "decay" : 0.3,
                 "sustain" : 0.4,
                 "release" : 0.8,
@@ -60,11 +66,16 @@
         if (!this.playing){
           Tone.Transport.start()
           this.playing = true
-        }
-        else {
+        } else {
           Tone.Transport.stop()
           this.playing = false
         }
+      },
+      reset: function(){
+        Tone.Transport.stop()
+        this.playing = false
+        this.step = 0
+        this.renderIndex++
       },
       iteratePlay: function(){
         if (this.step < 8){ this.step = this.step + 1 }
