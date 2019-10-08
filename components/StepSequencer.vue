@@ -5,6 +5,7 @@
         <node
           v-for="i in 8"
           :data-key="k+'-'+i+'-'+renderIndex"
+          :data-step="step"
           :key="k+'-'+i+'-'+renderIndex"
           :col="k"
           :row="i"
@@ -41,12 +42,12 @@
       Tone.Transport.scheduleRepeat(function(){
          that.iteratePlay()
       }, "16n");
-      this.synth = new Tone.PolySynth(12, Tone.MonoSynth, {
+      this.synth = new Tone.PolySynth(6, Tone.MonoSynth, {
             "oscillator" : {
-                "type" : "sine"
+                "type" : "sine2"
             },
             "envelope" : {
-                "attack" : 0.1,
+                "attack" : 0.5,
                 "decay" : 0.3,
                 "sustain" : 0.4,
                 "release" : 0.8,
@@ -59,7 +60,7 @@
                 "baseFrequency" : 300,
                 "octaves" : 4
             }
-        }).toMaster();
+      }).toMaster();
     },
     methods: {
       play: function(){
@@ -80,7 +81,7 @@
       iteratePlay: function(){
         if (this.step < 8){ this.step = this.step + 1 }
         else { this.step = 1 }
-        console.log(this.step)
+        // console.log(this.step)
       }
     }
   }

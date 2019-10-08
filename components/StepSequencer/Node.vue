@@ -9,7 +9,7 @@
     'seq__bar--hlt': this.step === this.row,
     'seq__bar--black': notes[col-1]['color'] === 'black'
   }" >
-  {{ row }}  {{ notes[col-1]["note"] }}
+  {{ notes[col-1]["note"] }}
   </span>
 </template>
 
