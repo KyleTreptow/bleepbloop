@@ -10,6 +10,18 @@
     display: inline-block
     border: solid 1px #ddd
     padding: $blh/8 $blh
-
-.active
-  background-color: red
+    font-size: 10px
+    min-width: 80px
+    // noselect
+    -webkit-touch-callout: none
+    -webkit-user-select: none
+    -khtml-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+    &--black
+      background: #eee
+    &--active
+      background-color: red
+    &--hlt
+      border-color: blue

@@ -1,10 +1,14 @@
 <template>
   <span
   class="seq__bar noselect"
-  v-on:mousedown="down"
-  v-on:mouseup="up"
-  v-on:mouseover="hover"
-  v-bind:class="{ active: active, highlight: this.step === this.row }"
+  @mousedown="down"
+  @mouseup="up"
+  @mouseover="hover"
+  :class="{
+    'seq__bar--active': active,
+    'seq__bar--hlt': this.step === this.row,
+    'seq__bar--black': notes[col-1]['color'] === 'black'
+  }"
   >
   {{ row }}  {{ notes[col-1]["note"] }}
   </span>
