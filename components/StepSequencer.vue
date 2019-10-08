@@ -38,7 +38,7 @@
       return {
         step: 0,
         playing: false,
-        ri: 0 // render index
+        ri: 0 // render index (for clearing/resetting)
       }
     },
     created: function(){
