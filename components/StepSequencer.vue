@@ -16,7 +16,7 @@
       </div>
     </div>
     <button @click="play()">
-      Play
+      {{ playing ? 'Pause' : 'Play' }}
     </button>
     <button @click="clear()">
       Clear
