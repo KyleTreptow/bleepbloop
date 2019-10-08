@@ -1,5 +1,6 @@
 <template>
   <div>
+    <p class="temphead">One Bar (16ths): </p>
     <div class="seq">
       <div v-for="k in 12" class="seq__keyrow">
         <node
