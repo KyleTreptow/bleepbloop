@@ -33,7 +33,7 @@
           </button>
         </li>
         <li class="list__item">
-          <button @click="generateRandom()">
+          <button @click="generateRandom(true)">
             Random Notes
           </button>
         </li>
@@ -78,7 +78,7 @@
                   &nbsp;
                   <label for="">Partials:</label>
                   <select v-model="voice.oscillator.partialCount">
-                    <option value="0">0</option>
+                    <option value=""></option>
                     <option v-for="i in 8" :value="i">{{ i }}</option>
                   </select>
                 </div>
@@ -166,8 +166,8 @@
       </div>
       <div v-else>
         <p class="synth__title">
-          <b>No Synth Loaded</b>
-          <i>No synth Loaded...</i>
+          <b>No Synth Loaded</b> <br>
+          <i>Create a synth with at least one voice.</i>
         </p>
         <ul class="list list--inline list--left">
           <li class="list__item">
@@ -205,7 +205,7 @@
     created: function(){
       var that = this;
       // create array
-      this.generateEmptyRandom();
+      this.generateRandom(false);
       // Tone
       Tone.Transport.scheduleRepeat(function(){
         that.iteratePlay()
@@ -234,7 +234,7 @@
       },
       clear: function(){
         this.ri++;
-        this.generateEmptyRandom();
+        this.generateRandom(false);
       },
       reset: function(){
         Tone.Transport.stop();
@@ -242,41 +242,28 @@
         this.step = 0;
         this.clear();
       },
-      generateEmptyRandom: function(){
-        var randArray = new Array(12);
-        for (var k = 0; k < randArray.length; k++) {
-          randArray[k] = new Array(16);
-          for (var i = 0; i < randArray[k].length; i++) {
-            randArray[k][i] = false;
-          }
-        }
-        this.random = randArray;
-        console.log(this.random);
-      },
-      generateRandom: function(){
+      generateRandom: function(active){
+        // if active is set to false, it clears out the random notes...
         var that = this;
-        console.log('Random Notes Entered: ');
         // create array
         var randArray = new Array(12);
         for (var k = 0; k < randArray.length; k++) {
           randArray[k] = new Array(16);
           for (var i = 0; i < randArray[k].length; i++) {
             var num = Math.floor(Math.random() * Math.floor(18));
-            if(num === 1){
+            if(num === 1 && active){
               randArray[k][i] = true;
             } else {
               randArray[k][i] = false;
             }
           }
         }
-        this.clear();
+        this.ri++; // clear...
         this.random = randArray;
-        console.log(this.random);
       },
       iteratePlay: function(){
         if (this.step < 16){ this.step = this.step + 1 }
         else { this.step = 1 }
-        // console.log(this.step)
       },
       log: function(data, msg){
         if(msg){
