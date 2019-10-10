@@ -14,15 +14,64 @@
         />
       </div>
     </div>
-    <button @click="play()">
-      {{ playing ? 'Pause' : 'Play' }}
-    </button>
-    <button @click="clear()">
-      Clear
-    </button>
-    <button @click="reset()">
-      Reset
-    </button>
+    <ul class="list list--inline list--left">
+      <li class="list__item">
+        <button @click="play()">
+          {{ playing ? 'Pause' : 'Play' }}
+        </button>
+      </li>
+      <li class="list__item">
+        <button @click="clear()">
+          Clear
+        </button>
+      </li>
+      <li class="list__item">
+        <button @click="reset()">
+          Reset
+        </button>
+      </li>
+      <li class="list__item">
+        <button @click="logSynth()">
+          Log Synth
+        </button>
+      </li>
+    </ul>
+    <div class="synth">
+      <div v-if="synth" >
+        <h2>Synth Properties:</h2>
+        <ul>
+          <li><b>Name: {{ synth }}</b></li>
+          <li>
+            Voices ({{ synth.voices.length }}):
+            <ul>
+              <li v-for="voice in synth.voices">
+                {{ voice }} ({{ voice.oscillator.type }}):
+                <label for="">Osc:</label>
+                <select v-model="voice.oscillator.baseType">
+                  <option value="sine">sine</option>
+                  <option value="square">square</option>
+                  <option value="sawtooth">sawtooth</option>
+                  <option value="triangle">triangle</option>
+                </select>
+                <label for="">Partials:</label>
+                <select v-model="voice.oscillator.partialCount">
+                  <option value="0">0</option>
+                  <option v-for="i in 8" :value="i">{{ i }}</option>
+                </select>
+                <ul>
+                  <li>Envelope</li>
+                  <li>Filter</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div v-else>
+        <i>No synth Loaded...</i>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -37,35 +86,24 @@
       return {
         step: 0,
         playing: false,
-        ri: 0 // render index (for clearing/re-setting)
+        ri: 0, // render index (for clearing/re-setting)
+        synth: false
       }
     },
     created: function(){
-      var that = this
+      var that = this;
       Tone.Transport.scheduleRepeat(function(){
         that.iteratePlay()
       }, "16n");
-      this.synth = new Tone.PolySynth(6, Tone.MonoSynth, {
-            "oscillator" : {
-                "type" : "square4"
-            },
-            "envelope" : {
-                "attack" : 0.5,
-                "decay" : 0.3,
-                "sustain" : 0.4,
-                "release" : 0.8,
-            },
-            "filterEnvelope" : {
-                "attack" : 0.001,
-                "decay" : 0.7,
-                "sustain" : 0.1,
-                "release" : 1.8,
-                "baseFrequency" : 300,
-                "octaves" : 4
-            }
-      }).toMaster();
+    },
+    mounted: function(){
+      this.createSynth(); // blank synth with default values
     },
     methods: {
+      createSynth: function(){
+        this.synth = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
+        this.logSynth();
+      },
       play: function(){
         if (!this.playing){
           Tone.Transport.start()
@@ -88,6 +126,11 @@
         if (this.step < 16){ this.step = this.step + 1 }
         else { this.step = 1 }
         // console.log(this.step)
+      },
+      logSynth: function(){
+        console.log('=========');
+        console.log(this.synth);
+        console.log('=========');
       }
     }
   }
