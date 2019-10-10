@@ -205,15 +205,7 @@
     created: function(){
       var that = this;
       // create array
-      var randArray = new Array(12);
-      for (var k = 0; k < randArray.length; k++) {
-        randArray[k] = new Array(16);
-        for (var i = 0; i < randArray[k].length; i++) {
-          randArray[k][i] = false;
-        }
-      }
-      this.random = randArray;
-      console.log(this.random);
+      this.generateEmptyRandom();
       // Tone
       Tone.Transport.scheduleRepeat(function(){
         that.iteratePlay()
@@ -241,13 +233,25 @@
         }
       },
       clear: function(){
-        this.ri++
+        this.ri++;
+        this.generateEmptyRandom();
       },
       reset: function(){
-        Tone.Transport.stop()
-        this.playing = false
-        this.step = 0
-        this.clear()
+        Tone.Transport.stop();
+        this.playing = false;
+        this.step = 0;
+        this.clear();
+      },
+      generateEmptyRandom: function(){
+        var randArray = new Array(12);
+        for (var k = 0; k < randArray.length; k++) {
+          randArray[k] = new Array(16);
+          for (var i = 0; i < randArray[k].length; i++) {
+            randArray[k][i] = false;
+          }
+        }
+        this.random = randArray;
+        console.log(this.random);
       },
       generateRandom: function(){
         var that = this;
