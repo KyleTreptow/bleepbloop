@@ -3,8 +3,7 @@
     <p class="temphead">One Bar (16ths): </p>
     <div class="seq">
       <div v-for="k in 12" class="seq__keyrow">
-        <node
-          v-for="i in 16"
+        <node v-for="i in 16"
           :data-key="k+'-'+i+'-'+ri"
           :data-step="step"
           :key="k+'-'+i+'-'+ri"
@@ -38,13 +37,13 @@
       return {
         step: 0,
         playing: false,
-        ri: 0 // render index (for clearing/resetting)
+        ri: 0 // render index (for clearing/re-setting)
       }
     },
     created: function(){
       var that = this
       Tone.Transport.scheduleRepeat(function(){
-         that.iteratePlay()
+        that.iteratePlay()
       }, "16n");
       this.synth = new Tone.PolySynth(6, Tone.MonoSynth, {
             "oscillator" : {

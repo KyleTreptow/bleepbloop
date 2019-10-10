@@ -1,15 +1,15 @@
 <template>
-  <span
-  class="node"
-  @mousedown="down"
-  @mouseup="up"
-  @mouseover="hover"
-  :class="{
-    'node--active': active,
-    'node--hlt': this.step === this.row,
-    'node--black': notes[col-1]['color'] === 'black'
-  }" >
-  {{ notes[col-1]["note"] }}
+  <span class="node node--16th"
+    @mousedown="down"
+    @mouseup="up"
+    @mouseover="hover"
+    :class="{
+      'node--active': active,
+      'node--hlt': this.step === this.row,
+      'node--black': notes[col-1]['color'] === 'black'
+    }"
+  >
+    <span class="node__label">{{ notes[col-1]["note"] }}</span>
   </span>
 </template>
 
