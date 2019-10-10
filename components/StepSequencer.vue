@@ -1,6 +1,26 @@
 <template>
   <div>
-    <div class="seq">
+
+    <ul class="list list--inline list--left" >
+      <li class="list__item">
+        <button @click="sectionToggle.seq = !sectionToggle.seq">
+          Sequencer
+        </button>
+      </li>
+      <li class="list__item">
+        <button @click="sectionToggle.poly = !sectionToggle.poly">
+          PolySynth
+        </button>
+      </li>
+      <li class="list__item">
+        <button @click="sectionToggle.mono = !sectionToggle.mono">
+          Mono Synths
+        </button>
+      </li>
+    </ul>
+
+    <!-- Start Sequencer -->
+    <div  v-if="sectionToggle.seq" class="seq">
       <h1 class="seq__title">One Bar (16ths): </h1>
       <div class="seq__body">
         <div v-for="k in 12" class="seq__keyrow">
@@ -39,9 +59,10 @@
         </li>
       </ul>
     </div>
+    <!-- End Sequencer -->
 
     <!-- Start Synth -->
-    <div class="synth">
+    <div  v-if="sectionToggle.poly" class="synth">
       <div v-if="synth" >
         <p class="synth__title">
           <b>{{ synth }}</b>
@@ -195,8 +216,10 @@
     <!-- End Synth -->
 
     <!-- Start Test Synth -->
-    <synth :name="'Synth #1'" :key="'001'" />
-    <synth :name="'Synth #2'" :key="'002'" />
+    <div v-if="sectionToggle.mono">
+      <synth :name="'Synth #1'" :key="'001'" />
+      <synth :name="'Synth #2'" :key="'002'" />
+    </div>
     <!-- End Test Synth -->
 
   </div>
@@ -205,7 +228,7 @@
 <script>
   import Tone from 'tone';
   import Node from '~/components/StepSequencer/Node.vue'
-  import Synth from '~/components/StepSequencer/Synth.vue'
+  import Synth from '~/components/Synth.vue'
   export default {
     components: {
       Node,
@@ -213,6 +236,11 @@
     },
     data: function(){
       return {
+        sectionToggle: {
+          seq: false,
+          poly: false,
+          mono: true
+        },
         step: 0,
         playing: false,
         ri: 0, // render index (for clearing/re-setting)
