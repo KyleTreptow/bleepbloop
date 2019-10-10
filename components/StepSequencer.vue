@@ -194,15 +194,22 @@
     </div>
     <!-- End Synth -->
 
+    <!-- Start Test Synth -->
+    <synth :name="'Synth #1'" :key="'001'" />
+    <synth :name="'Synth #2'" :key="'002'" />
+    <!-- End Test Synth -->
+
   </div>
 </template>
 
 <script>
   import Tone from 'tone';
   import Node from '~/components/StepSequencer/Node.vue'
+  import Synth from '~/components/StepSequencer/Synth.vue'
   export default {
     components: {
-      Node
+      Node,
+      Synth
     },
     data: function(){
       return {

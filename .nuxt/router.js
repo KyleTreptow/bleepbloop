@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { interopDefault } from './utils'
 
-const _2814e631 = () => interopDefault(import('../pages/buttons.vue' /* webpackChunkName: "pages/buttons" */))
-const _54148502 = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _f1af776c = () => interopDefault(import('../pages/buttons.vue' /* webpackChunkName: "pages/buttons" */))
+const _706a955b = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 Vue.use(Router)
 
@@ -81,11 +81,11 @@ export function createRouter() {
 
     routes: [{
       path: "/buttons",
-      component: _2814e631,
+      component: _f1af776c,
       name: "buttons"
     }, {
       path: "/",
-      component: _54148502,
+      component: _706a955b,
       name: "index"
     }],
 
