@@ -81,6 +81,10 @@
                     <option value=""></option>
                     <option v-for="i in 8" :value="i">{{ i }}</option>
                   </select>
+                  &nbsp;
+                  <label for="">Detune:</label> &nbsp;
+                  <input type="number" v-model="voice.oscillator.detune.value"
+                  min="-20" max="20" />
                 </div>
                 <h4>Amp Env (A, D, S, R):</h4>
                 <div class="synth__panel">
