@@ -40,6 +40,7 @@
       </ul>
     </div>
 
+    <!-- Start Synth -->
     <div class="synth">
       <div v-if="synth" >
         <p class="synth__title">
@@ -63,10 +64,10 @@
         </ul>
         <ul>
           <!-- Start Voice -->
-          <li v-for="voice in synth.voices" class="synth__voice">
+          <li v-for="(voice, index) in synth.voices" class="synth__voice">
             <ul class="synth__details">
               <li class="synth__module">
-                <h4>{{ voice }} ({{ voice.oscillator.type }}):</h4>
+                <h4>{{ '#'+(index + 1)+'. ' }} {{ voice }} ({{ voice.oscillator.type }}):</h4>
                 <div class="synth__panel">
                   <label for="">Osc:</label> &nbsp;
                   <select v-model="voice.oscillator.baseType">
@@ -76,10 +77,11 @@
                     <option value="triangle">triangle</option>
                   </select>
                   &nbsp;
-                  <label for="">Partials:</label>
+                  <label for="">Partials:</label> &nbsp;
                   <select v-model="voice.oscillator.partialCount">
                     <option value=""></option>
-                    <option v-for="i in 8" :value="i">{{ i }}</option>
+                    <!-- <option value="0">0</option> -->
+                    <option v-for="i in 32" :value="i">{{ i }}</option>
                   </select>
                   &nbsp;
                   <label for="">Detune:</label> &nbsp;
@@ -89,7 +91,7 @@
                 <h4>Amp Env (A, D, S, R):</h4>
                 <div class="synth__panel">
                   A: &nbsp; <input v-model="voice.envelope.attack"
-                    type="range" min="0.005" max="1.0" step="0.005" />
+                    type="range" min="0.005" max="2.0" step="0.005" />
                   &nbsp; <label for="">{{ voice.envelope.attack }}</label> <br>
                   D: &nbsp; <input v-model="voice.envelope.decay"
                     type="range" min="0.2" max="1.0" step="0.1" />
@@ -135,7 +137,7 @@
                   <input v-model="voice.filter.frequency.value" type="range"
                   min="0" max="40000" step="100" />
                   &nbsp;
-                  {{ voice.filter.frequency.value }}
+                  {{ formatNumCommas(voice.filter.frequency.value) }} hz
                 </div>
                 <h4>Filter Env (A, D, S, R):</h4>
                 <div class="synth__panel">
@@ -154,7 +156,7 @@
                 </div>
               </li>
               <li class="synth__module">
-                <h4>Volume</h4>
+                <h4>Master Volume:</h4>
                 <div class="synth__panel">
                   <input v-model="voice.volume.value" type="range"
                   min="-10.0" max="10.0" step="0.5" />
@@ -163,7 +165,7 @@
                     {{ (Math.round(voice.volume.value * 100) / 100) + ' ' + voice.volume.units }}
                   </label>
                 </div>
-                <h4>Other Options</h4>
+                <h4>Other Options:</h4>
                 <div class="synth__panel">
                   <button @click="log(voice, 'Mono Voice Log: ')">Log Voice to Console</button>
                 </div>
@@ -190,6 +192,7 @@
         </ul>
       </div>
     </div>
+    <!-- End Synth -->
 
   </div>
 </template>
@@ -213,7 +216,7 @@
     },
     created: function(){
       var that = this;
-      // create array
+      // create array (false to set all cells as false)
       this.generateRandom(false);
       // Tone
       Tone.Transport.scheduleRepeat(function(){
@@ -222,6 +225,9 @@
     },
     mounted: function(){
       this.createSynth(this.synthVoices); // blank synth with default values
+    },
+    computed: {
+      // none...
     },
     methods: {
       createSynth: function(v){
@@ -280,6 +286,9 @@
         }
         console.log(data);
         console.log('=========');
+      },
+      formatNumCommas: function(num){
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
       }
     }
   }
