@@ -1,74 +1,184 @@
 <template>
   <div>
-    <p class="temphead">One Bar (16ths): </p>
     <div class="seq">
-      <div v-for="k in 12" class="seq__keyrow">
-        <node v-for="i in 16"
-          :data-key="k+'-'+i+'-'+ri"
-          :data-step="step"
-          :key="k+'-'+i+'-'+ri"
-          :col="k"
-          :row="i"
-          :step="step"
-          :synth="synth"
-        />
+      <h1 class="seq__title">One Bar (16ths): </h1>
+      <div class="seq__body">
+        <div v-for="k in 12" class="seq__keyrow">
+          <node v-for="i in 16"
+            :data-key="k+'-'+i+'-'+ri"
+            :data-step="step"
+            :key="k+'-'+i+'-'+ri"
+            :col="k"
+            :row="i"
+            :step="step"
+            :synth="synth"
+            :random="(random[k -1][i -1]) ? random[k -1][i -1] : false"
+          />
+        </div>
       </div>
+      <ul class="list list--inline list--left">
+        <li class="list__item">
+          <button @click="play()">
+            {{ playing ? 'Pause' : 'Play' }}
+          </button>
+        </li>
+        <li class="list__item">
+          <button @click="clear()">
+            Clear
+          </button>
+        </li>
+        <li class="list__item">
+          <button @click="reset()">
+            Reset
+          </button>
+        </li>
+        <li class="list__item">
+          <button @click="generateRandom()">
+            Random Notes
+          </button>
+        </li>
+      </ul>
     </div>
-    <ul class="list list--inline list--left">
-      <li class="list__item">
-        <button @click="play()">
-          {{ playing ? 'Pause' : 'Play' }}
-        </button>
-      </li>
-      <li class="list__item">
-        <button @click="clear()">
-          Clear
-        </button>
-      </li>
-      <li class="list__item">
-        <button @click="reset()">
-          Reset
-        </button>
-      </li>
-      <li class="list__item">
-        <button @click="logSynth()">
-          Log Synth
-        </button>
-      </li>
-    </ul>
+
     <div class="synth">
       <div v-if="synth" >
-        <h2>Synth Properties:</h2>
+        <p class="synth__title">
+          <b>{{ synth }}</b>
+          ({{ synth.voices.length + (synth.voices.length == 1 ? ' voice' : ' voices') }}):
+        </p>
+        <ul class="list list--inline list--left">
+          <li class="list__item">
+            <button @click="createSynth(synthVoices)">
+              {{ synth ? 'Reset' : 'Create'}} Synth
+            </button>
+            <label class="control__label" for="#">Voices:</label>
+            <input type="number" v-model="synthVoices"
+            min="0" max="6" step="1" />
+          </li>
+          <li class="list__item">
+            <button @click="log(synth, 'PolySynth Log: ')">
+              Log Synth to Console
+            </button>
+          </li>
+        </ul>
         <ul>
-          <li><b>Name: {{ synth }}</b></li>
-          <li>
-            Voices ({{ synth.voices.length }}):
-            <ul>
-              <li v-for="voice in synth.voices">
-                {{ voice }} ({{ voice.oscillator.type }}):
-                <label for="">Osc:</label>
-                <select v-model="voice.oscillator.baseType">
-                  <option value="sine">sine</option>
-                  <option value="square">square</option>
-                  <option value="sawtooth">sawtooth</option>
-                  <option value="triangle">triangle</option>
-                </select>
-                <label for="">Partials:</label>
-                <select v-model="voice.oscillator.partialCount">
-                  <option value="0">0</option>
-                  <option v-for="i in 8" :value="i">{{ i }}</option>
-                </select>
-                <ul>
-                  <li>Envelope</li>
-                  <li>Filter</li>
-                </ul>
+          <!-- Start Voice -->
+          <li v-for="voice in synth.voices" class="synth__voice">
+            <ul class="synth__details">
+              <li class="synth__module">
+                <h4>{{ voice }} ({{ voice.oscillator.type }}):</h4>
+                <div class="synth__panel">
+                  <label for="">Osc:</label> &nbsp;
+                  <select v-model="voice.oscillator.baseType">
+                    <option value="sine">sine</option>
+                    <option value="square">square</option>
+                    <option value="sawtooth">sawtooth</option>
+                    <option value="triangle">triangle</option>
+                  </select>
+                  &nbsp;
+                  <label for="">Partials:</label>
+                  <select v-model="voice.oscillator.partialCount">
+                    <option value="0">0</option>
+                    <option v-for="i in 8" :value="i">{{ i }}</option>
+                  </select>
+                </div>
+                <h4>Amp Env (A, D, S, R):</h4>
+                <div class="synth__panel">
+                  A: &nbsp; <input v-model="voice.envelope.attack"
+                    type="range" min="0.005" max="1.0" step="0.005" />
+                  &nbsp; <label for="">{{ voice.envelope.attack }}</label> <br>
+                  D: &nbsp; <input v-model="voice.envelope.decay"
+                    type="range" min="0.2" max="1.0" step="0.1" />
+                  &nbsp; <label for="">{{ voice.envelope.decay }}</label> <br>
+                  S: &nbsp; <input v-model="voice.envelope.sustain"
+                    type="range" min="0.5" max="5.0" step="0.5" />
+                  &nbsp; <label for="">{{ voice.envelope.sustain }}</label> <br>
+                  R: &nbsp; <input v-model="voice.envelope.release"
+                    type="range" min="0.1" max="5.0" step="0.1" />
+                  &nbsp; <label for="">{{ voice.envelope.release }}</label>
+                </div>
+                <h4>Volume</h4>
+                <div class="synth__panel">
+                  <i>Volume Control Here...</i>
+                </div>
+              </li>
+              <li class="synth__module">
+                <h4>Filter:</h4>
+                <div class="synth__panel">
+                  Type: &nbsp;
+                  <select v-model="voice.filter.type">
+                    <option value="lowpass">lowpass</option>
+                    <option value="highpass">highpass</option>
+                    <option value="bandpass">bandpass</option>
+                    <option value="lowshelf">lowshelf</option>
+                    <option value="highshelf">highshelf</option>
+                    <option value="notch">notch</option>
+                    <option value="allpass">allpass</option>
+                    <option value="peaking">peaking</option>
+                  </select>
+                  &nbsp;
+                  Rolloff: &nbsp;
+                  <select v-model="voice.filter.rolloff">
+                    <option value="-12">-12</option>
+                    <option value="-24">-24</option>
+                    <option value="-48">-48</option>
+                    <option value="-96">-96</option>
+                  </select>
+                  &nbsp;
+                  Q: &nbsp;
+                  <select v-model="voice.filter.Q.value">
+                    <option v-for="i in 6" :value="i">{{ i }}</option>
+                  </select>
+                </div>
+                <div class="synth__panel">
+                  Freq: &nbsp;
+                  <input v-model="voice.filter.frequency.value" type="range"
+                  min="0" max="40000" step="100" />
+                  &nbsp;
+                  {{ voice.filter.frequency.value }}
+                </div>
+                <h4>Filter Env (A, D, S, R):</h4>
+                <div class="synth__panel">
+                  A: &nbsp; <input v-model="voice.filterEnvelope.attack"
+                    type="range" min="0.005" max="1.0" step="0.005" />
+                  &nbsp; <label for="">{{ voice.filterEnvelope.attack }}</label> <br>
+                  D: &nbsp; <input v-model="voice.filterEnvelope.decay"
+                    type="range" min="0.2" max="1.0" step="0.1" />
+                  &nbsp; <label for="">{{ voice.filterEnvelope.decay }}</label> <br>
+                  S: &nbsp; <input v-model="voice.filterEnvelope.sustain"
+                    type="range" min="0.5" max="5.0" step="0.5" />
+                  &nbsp; <label for="">{{ voice.filterEnvelope.sustain }}</label> <br>
+                  R: &nbsp; <input v-model="voice.filterEnvelope.release"
+                    type="range" min="0.1" max="5.0" step="0.1" />
+                  &nbsp; <label for="">{{ voice.filterEnvelope.release }}</label>
+                </div>
+              </li>
+              <li class="synth__module">
+                <h4>Other Options</h4>
+                <div class="synth__panel">
+                  <button @click="log(voice, 'Mono Voice Log: ')">Log Voice to Console</button>
+                </div>
               </li>
             </ul>
           </li>
+          <!-- End Voice -->
         </ul>
       </div>
       <div v-else>
-        <i>No synth Loaded...</i>
+        <p class="synth__title">
+          <b>No Synth Loaded</b>
+          <i>No synth Loaded...</i>
+        </p>
+        <ul class="list list--inline list--left">
+          <li class="list__item">
+            <button @click="createSynth(synthVoices)">
+              {{ synth ? 'Reset' : 'Create'}} Synth
+            </button>
+            <label class="control__label" for="#">Voices:</label>
+            <input type="number" v-model="synthVoices"
+            min="0" max="6" step="1" />
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -87,22 +197,39 @@
         step: 0,
         playing: false,
         ri: 0, // render index (for clearing/re-setting)
-        synth: false
+        synth: false,
+        synthVoices: 1,
+        random: false
       }
     },
     created: function(){
       var that = this;
+      // create array
+      var randArray = new Array(12);
+      for (var k = 0; k < randArray.length; k++) {
+        randArray[k] = new Array(16);
+        for (var i = 0; i < randArray[k].length; i++) {
+          randArray[k][i] = false;
+        }
+      }
+      this.random = randArray;
+      console.log(this.random);
+      // Tone
       Tone.Transport.scheduleRepeat(function(){
         that.iteratePlay()
       }, "16n");
     },
     mounted: function(){
-      this.createSynth(); // blank synth with default values
+      this.createSynth(this.synthVoices); // blank synth with default values
     },
     methods: {
-      createSynth: function(){
-        this.synth = new Tone.PolySynth(4, Tone.MonoSynth).toMaster();
-        this.logSynth();
+      createSynth: function(v){
+        if(v == 0){
+          this.synth = false;
+        } else {
+          this.synth = new Tone.PolySynth(v, Tone.MonoSynth).toMaster();
+          this.log(this.synth, 'Init Synth Log: ');
+        }
       },
       play: function(){
         if (!this.playing){
@@ -122,14 +249,36 @@
         this.step = 0
         this.clear()
       },
+      generateRandom: function(){
+        var that = this;
+        console.log('Random Notes Entered: ');
+        // create array
+        var randArray = new Array(12);
+        for (var k = 0; k < randArray.length; k++) {
+          randArray[k] = new Array(16);
+          for (var i = 0; i < randArray[k].length; i++) {
+            var num = Math.floor(Math.random() * Math.floor(18));
+            if(num === 1){
+              randArray[k][i] = true;
+            } else {
+              randArray[k][i] = false;
+            }
+          }
+        }
+        this.clear();
+        this.random = randArray;
+        console.log(this.random);
+      },
       iteratePlay: function(){
         if (this.step < 16){ this.step = this.step + 1 }
         else { this.step = 1 }
         // console.log(this.step)
       },
-      logSynth: function(){
-        console.log('=========');
-        console.log(this.synth);
+      log: function(data, msg){
+        if(msg){
+          console.log(msg);
+        }
+        console.log(data);
         console.log('=========');
       }
     }

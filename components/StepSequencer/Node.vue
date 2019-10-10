@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ['col', 'row', 'step', 'synth'],
+  props: ['col', 'row', 'step', 'synth', 'random'],
   data: function() {
     return {
       octave: '4',
@@ -34,6 +34,11 @@ export default {
         { note: 'Bb', color: 'black' },
         { note: 'B', color: 'white' }
       ]
+    }
+  },
+  mounted: function(){
+    if(this.random){
+      this.active = true;
     }
   },
   methods: {
