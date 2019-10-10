@@ -16,7 +16,7 @@
           />
         </div>
       </div>
-      <ul class="list list--inline list--left">
+      <ul class="list list--inline list--left" v-if="synth">
         <li class="list__item">
           <button @click="play()">
             {{ playing ? 'Pause' : 'Play' }}
@@ -101,10 +101,6 @@
                     type="range" min="0.1" max="5.0" step="0.1" />
                   &nbsp; <label for="">{{ voice.envelope.release }}</label>
                 </div>
-                <h4>Volume</h4>
-                <div class="synth__panel">
-                  <i>Volume Control Here...</i>
-                </div>
               </li>
               <li class="synth__module">
                 <h4>Filter:</h4>
@@ -158,6 +154,15 @@
                 </div>
               </li>
               <li class="synth__module">
+                <h4>Volume</h4>
+                <div class="synth__panel">
+                  <input v-model="voice.volume.value" type="range"
+                  min="-10.0" max="10.0" step="0.5" />
+                  &nbsp;
+                  <label for="">
+                    {{ (Math.round(voice.volume.value * 100) / 100) + ' ' + voice.volume.units }}
+                  </label>
+                </div>
                 <h4>Other Options</h4>
                 <div class="synth__panel">
                   <button @click="log(voice, 'Mono Voice Log: ')">Log Voice to Console</button>
