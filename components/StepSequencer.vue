@@ -37,7 +37,7 @@
       }, "16n");
       this.synth = new Tone.PolySynth(12, Tone.MonoSynth, {
             "oscillator" : {
-                "type" : "square8"
+                "type" : "sine4"
             },
             "envelope" : {
                 "attack" : 0.05,
